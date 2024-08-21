@@ -1,0 +1,21 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="my-4">
+    <h1 class="h3">{{ object.title }}</h1>
+    {% if object.poster %}
+    <img src="{{ object.poster.url }}" alt="{{ object.title }} постер" class="img-fluid mb-3" style="max-width: 400px;">
+    {% endif %}
+    <p><strong>Год выпуска:</strong> {{ object.year }}</p>
+    <p><strong>Режиссер:</strong> {{ object.director }}</p>
+    <p><strong>Жанр:</strong> {{ object.genre }}</p>
+    <p>{{ object.description }}</p>
+    <div class="mt-4">
+        <a href="{% url 'movie_edit' object.pk %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'movie_delete' object.pk %}" class="btn btn-danger">Удалить</a>
+        <a href="{% url 'movie_list' %}" class="btn btn-secondary">Вернуться к списку</a>
+    </div>
+</div>
+{% endblock %}

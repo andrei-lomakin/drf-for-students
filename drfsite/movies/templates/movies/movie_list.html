@@ -1,0 +1,37 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Каталог фильмов{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h1 class="h3">Каталог фильмов</h1>
+    <a href="{% url 'movie_add' %}" class="btn btn-primary">Добавить новый фильм</a>
+</div>
+
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Поиск по названию..." name="search">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    {% for movie in object_list %}
+    <div class="col-md-4">
+        <div class="card mb-4">
+            {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text"><strong>Жанр:</strong> {{ movie.genre }}</p>
+                <p class="card-text"><strong>Год выпуска:</strong> {{ movie.year }}</p>
+                <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
